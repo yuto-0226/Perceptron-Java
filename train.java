@@ -1,5 +1,4 @@
 
-
 public class train {
     private final double eta;    // 學習率
     private double e;    // 閥值
@@ -17,21 +16,21 @@ public class train {
         this.count = 0;
     }
 
-    public void fit(final double max, final double min) {
-        final actFunction f = new actFunction();
-        final Data d = new Data();
+    public void fit(double max, double min) {
+         Data d = new Data();
         double y;
         double x;
         count = 1;
-        while (count<=10000) {
+        while (count<=1000) {
             x = d.data(max, min);
-            t = (x > 10000) ? 1 : 0; // 設定預計值
+            t = (x > 100) ? 1 : 0; // 設定預計值
             net = Sigma(x);
             y = actFunction.Sigmoid(net);
-//            if ((eta * (t - y) * x) == 0) {
-//                System.out.println("--Finished--\n");
-//                break;
-//            }
+/*            if ((eta * (t - y) * x) == 0) {
+*               System.out.println("--Finished--\n");
+*                break;
+*            }
+*/
             // 更新
             w += eta * (t - y) * x;
             e += eta * (t - y) * 1;
@@ -41,7 +40,7 @@ public class train {
         }
 
     }
-
+    //加總
     public double Sigma(final double x) {
         net=(x * w + e);
         return net;
