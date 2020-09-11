@@ -1,11 +1,15 @@
 
+
+
+
 public class train {
-    private final double eta;    // å­¸ç¿’çŽ‡
-    private double e;    // é–¥å€¼
-    private double w;    // æ¬Šé‡
-    private double net;    // xåŠ ç¸½
-    private double t;    // é ä¼°å€¼
-    private int count;    // æ›´æ–°æ¬¡æ•¸
+    private final double eta;    // ¾Ç²ß²v
+    private double e;    // »Ö­È
+    private double w;    // Åv­«
+    private double net;    // x¥[Á`
+    private double t;    // ¹w¦ô­È
+    public int count;    // §ó·s¦¸¼Æ
+    public float per;
 
     public train(final double Eta) {
         this.eta = Eta;
@@ -21,21 +25,21 @@ public class train {
         return (1 - (w * 1.00f / x.length));
     }
 
-    public void fit(double max, double min) {
+    public void fit(double max, double min,int range) {
          Data d = new Data();
-        double[] y=new double[52005];
-        double[] x=new double[52005];
+        double[] y=new double[range];
+        double[] x=new double[range];
         count = 1;
-        int wr=0;    //éŒ¯èª¤æ¬¡æ•¸
-        int i=0;    //é™£åˆ—è³‡æ–™
-        float per=0;
-        while (count!=52005) {
+        int wr=0;    //¿ù»~¦¸¼Æ
+        int i=0;    //°}¦C¸ê®Æ
+        per=0;
+        while (count!=range) {
             x[i] = d.data(max, min);
-            t = (x[i] > 100) ? 1 : 0; // è¨­å®šé è¨ˆå€¼
+            t = (x[i] > 100) ? 1 : 0; // ³]©w¹w­p­È
             net = Sigma(x[i]);
             y[i] = actFunction.Sigmoid(net);
 
-            // æ›´æ–°
+            // §ó·s
             w += eta * (t - y[i]) * x[i];
             e += eta * (t - y[i]) * 1;
 
@@ -43,22 +47,22 @@ public class train {
                 wr+=1;
             }
             per=per(wr, x);
-            //å°å‡º
-            System.out.println("[" + count + "]Input="+x[i] +" ,Output="+ y[i] +" ,w="+w+" ,e="+e+" ,Bias="+(eta*(t-y[i])*x[i])+" ,erro="+wr+" >> "+per);
+            //¦L¥X
+            System.out.println("[" + count + "]Input="+x[i] +" ,Output="+ y[i] +" ,w="+(((int)(w*1000))/1000.0)+" ,e="+(((int)(e*1000))/1000.0)+" ,Bias="+(eta*(t-y[i])*x[i])+" ,erro="+wr+" >> "+per);
 
 
             count += 1;
             i+=1;
 
-//            if (per>=0.9999997) {
-//                System.out.println("--Finished--\n");
-//                 break;
-//             }
+            if (per>=0.9999&&i>=150) {
+                System.out.println("--Finished--\n");
+                 break;
+             }
         }
         System.out.println("\n");
 
     }
-    //åŠ ç¸½
+    //¥[Á`
     public double Sigma(final double x) {
         net=(x * w - e);
         return net;

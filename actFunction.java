@@ -1,3 +1,5 @@
+
+
 public class actFunction {
 
     public static float Sigmoid(double net){
@@ -10,3 +12,4 @@ public class actFunction {
         return y;
     }
 }
+

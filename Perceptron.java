@@ -1,12 +1,17 @@
+
+
 import java.util.*;
 public class Perceptron{
     public static void main(final String[] args) {
-        Scanner sc=new Scanner(System.in);
-        final train tr = new train(1.45); // ç”Ÿæˆç‰©ä»¶
-        tr.fit(0,200);    //è¨“ç·´
-        //å®Œæˆ
+        @SuppressWarnings("resource")
+		Scanner sc=new Scanner(System.in);
+        final train tr = new train(1.45); // ¥Í¦¨ª«¥ó
+//        tr.fit(0,200,52005);    //°V½m
+        	tr.fit(0,200,52005);
+        //§¹¦¨
         int x;
         double net;
+        System.out.println(" >> ­Y¿é¤J­È¤j©ó 100 ±N·|¿é¥X 1 ¤Ï¤§¿é¥X 0\n");
         while(sc.hasNext()){
             try {
                 x=sc.nextInt();
@@ -15,10 +20,11 @@ public class Perceptron{
                 System.out.println(" >> "+actFunction.Sigmoid(net));
             
             } catch (InputMismatchException e) {
-                System.out.println("System Error >> "+e);
+                System.out.println(" >> System Error : "+e);
                 x=0;
                 break;
             }
         }
+        
     }
 }
