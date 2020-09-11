@@ -1,30 +1,27 @@
-
-
 import java.util.*;
 public class Perceptron{
     public static void main(final String[] args) {
-        @SuppressWarnings("resource")
-		Scanner sc=new Scanner(System.in);
-        final train tr = new train(1.45); // �ͦ�����
-//        tr.fit(0,200,52005);    //�V�m
-        	tr.fit(0,200,52005);
-        //����
-        int x;
-        double net;
-        System.out.println(" >> �Y��J�Ȥj�� 100 �N�|��X 1 �Ϥ���X 0\n");
-        while(sc.hasNext()){
+        Scanner sc=new Scanner(System.in);  //生成 Scanner 物件
+        final train tr = new train(0.0045); //生成train物件 ,並設定學習速率
+        double p;   //宣告正確率變數
+        do{
+            p=tr.fit(0,200);    //訓練 ,並將回傳值 per 存入變數 p
+        }while(p!=1);
+        System.out.println("--學習完成--\n");
+        System.out.println(">>共 "+tr.total+" 筆測資");
+        //完成
+        int x;  //宣告輸入值變數
+        double net; //宣告加總變數
+        while(sc.hasNext()){    //EOF判斷
             try {
-                x=sc.nextInt();
-                net=tr.Sigma(x);
-                System.out.println();
-                System.out.println(" >> "+actFunction.Sigmoid(net));
+                x=sc.nextInt(); //將輸入值存入變數 x
+                net=tr.Sigma(x);    //將 x 值加總後存入變數 net
+                System.out.println(">> "+actFunction.Sigmoid(net)); //印出結果
             
-            } catch (InputMismatchException e) {
-                System.out.println(" >> System Error : "+e);
-                x=0;
-                break;
+            } catch (InputMismatchException e) {    //拋出輸入錯誤例外
+                System.out.println("System Error >> "+e);   //印出例外
+                break;  //結束程式碼
             }
         }
-        
     }
 }
